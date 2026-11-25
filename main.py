@@ -33,6 +33,9 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(line, encoding="utf-8")
     os.chmod(OUT, 0o644)
+    # Read back and confirm the gated line is exactly what was written.
+    if OUT.read_text(encoding="utf-8") != line:
+        raise SystemExit("entry.txt does not round-trip the gated review")
 
 
 if __name__ == "__main__":
